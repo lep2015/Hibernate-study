@@ -1,0 +1,15 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.lep.hibernate.model">
+
+    <class name="Video" table="video">
+        <id name="id" column="video_ID">
+            <generator class="increment"/>
+        </id>
+        <property name="name" type="string" column="video_name"/>
+        <property name="url" type="string" column="video_url"/>
+    </class>
+
+</hibernate-mapping>
