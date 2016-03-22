@@ -1,9 +1,10 @@
-package org.lep.hibernate.model.test;
+package org.lep.hibernate.test;
 
 import junit.framework.TestCase;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.ImprovedNamingStrategy;
 import org.junit.Test;
 import org.lep.hibernate.model.Video;
 
@@ -19,7 +20,7 @@ public class TestApi extends TestCase {
     public void setUp() throws Exception {
         super.setUp();
         // 初始化sessionFactory，由于Hibernate配置文件放在了classpath下，所以不用指定配置文件位置
-        sessionFactory = new Configuration().configure().buildSessionFactory();
+        sessionFactory = new Configuration().setNamingStrategy(ImprovedNamingStrategy.INSTANCE).configure().buildSessionFactory();
 
     }
 

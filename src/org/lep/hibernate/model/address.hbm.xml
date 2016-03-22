@@ -4,12 +4,10 @@
 
 <hibernate-mapping package="org.lep.hibernate.model" >
 
-    <class name="Video" table="video">
-        <id name="id" column="video_ID">
+    <class name="Address" table="address">
+        <id name="id" column="address_id">
             <generator class="increment"/>
         </id>
-        <property name="name" type="string" column="video_name"/>
-        <property name="url" type="string" column="video_url"/>
     </class>
 
 </hibernate-mapping>

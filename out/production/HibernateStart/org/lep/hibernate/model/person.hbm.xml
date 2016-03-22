@@ -1,0 +1,63 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.lep.hibernate.model" >
+
+    <class name="Person" table="person">
+        <id name="id" column="person_id">
+            <generator class="increment">
+            </generator>
+        </id>
+        <!--单向关联 start-->
+        <!--多对一是一对多的反向关联，一对多、多对一就构成了多对多-->
+
+        <!--多对一，只需要在many的一方使用many-to-one进行映射即可，和其他id、property一样name表示model里面的属性名称-->
+        <!--<many-to-one name="address" column="address_id" not-null="true" />-->
+
+        <!--一对一,把many-to-one的unique设置为true之后就是单向一对一，在数据库中的体现就是这个外键的值是唯一（key=UNI,如果没有设置unique的话key=mul）的，那也就是只能对应一个Address-->
+        <!--有not-null约束的时候注意save对象的顺序，如果没有不用注意顺序hibernate会在保存了关联的对象之后，update到当前对象对应的表-->
+        <!--<many-to-one name="address" column="address_id" not-null="true" unique="true" />-->
+        <!--将主键作为外键的时候，关联的对象和本对象的save顺序是有关系的，要先savereference的对象，然后在保存本对象-->
+        <!-- constrained说明主键上存在一个约束，即外键，参考address-->
+        <!--<one-to-one name="address" constrained="true" />-->
+
+        <!--一对多-->
+        <!--<set name="addressList">-->
+            <!--<key column="person_id" >-->
+            <!--</key>-->
+            <!--<one-to-many class="Address"></one-to-many>-->
+        <!--</set>-->
+        <!--单向关联 end-->
+
+        <!--单向关联——基于连接表 start-->
+        <!--使用多对多和join的时候会产生中间表-->
+        <!--一对多使用many-to-many会产生一张中间表-->
+        <!--<set name="addressList" table="per_addr">-->
+            <!--<key column="person_id"></key>-->
+            <!--<many-to-many column="address_id" class="Address" unique="true" />-->
+        <!--</set>-->
+
+        <!--多对一-->
+        <!--<join table="per_addr" optional="true">-->
+            <!--<key column="peron_id"></key>-->
+            <!--<many-to-one name="address" column="address_id" not-null="true"></many-to-one>-->
+        <!--</join>-->
+
+        <!--一对一-->
+        <!--<join table="per_addr" optional="true">-->
+            <!--<key column="person_id"></key>-->
+            <!--<many-to-one name="address" column="address_id" not-null="true" unique="true" />-->
+        <!--</join>-->
+
+        <!--多对多-->
+        <set name="addressList" table="per_addr">
+            <key column="person_id"></key>
+            <many-to-many column="address_id" class="Address"></many-to-many>
+        </set>
+        <!--单向关联——基于连接表 end-->
+
+
+    </class>
+
+</hibernate-mapping>
