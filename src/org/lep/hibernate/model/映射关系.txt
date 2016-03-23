@@ -1,0 +1,95 @@
+单向
+多对一
+Hibernate: create table address (address_id bigint not null, primary key (address_id))
+Hibernate: create table person (person_id bigint not null, address_id bigint not null, primary key (person_id))
+Hibernate: alter table person add index FK_o8tnkglv9n1eeqmo7de7em37n (address_id), add constraint FK_o8tnkglv9n1eeqmo7de7em37n foreign key (address_id) references address (address_id)
+
+一对一
+	基于外键
+Hibernate: create table address (address_id bigint not null, primary key (address_id))
+Hibernate: create table person (person_id bigint not null, address_id bigint not null, primary key (person_id))
+Hibernate: alter table person add constraint UK_o8tnkglv9n1eeqmo7de7em37n unique (address_id)
+Hibernate: alter table person add index FK_o8tnkglv9n1eeqmo7de7em37n (address_id), add constraint FK_o8tnkglv9n1eeqmo7de7em37n foreign key (address_id) references address (address_id)
+
+	基于主键
+Hibernate: create table address (address_id bigint not null, primary key (address_id))
+Hibernate: create table person (person_id bigint not null, primary key (person_id))
+Hibernate: alter table person add index FK_acrq16tm1ioc620qk2nm5gwyg (person_id), add constraint FK_acrq16tm1ioc620qk2nm5gwyg foreign key (person_id) references address (address_id)
+
+一对多
+Hibernate: create table address (address_id bigint not null, person_id bigint, primary key (address_id))
+Hibernate: create table person (person_id bigint not null, primary key (person_id))
+Hibernate: alter table address add index FK_5k57pkctki2o1wpmk2880r74j (person_id), add constraint FK_5k57pkctki2o1wpmk2880r74j foreign key (person_id) references person (person_id)
+
+单向——中间表
+一对多
+Hibernate: create table address (address_id bigint not null, primary key (address_id))
+Hibernate: create table per_addr (person_id bigint not null, address_id bigint not null, primary key (person_id, address_id))
+Hibernate: create table person (person_id bigint not null, primary key (person_id))
+Hibernate: alter table per_addr add constraint UK_8v3twe5k7nlb8wcjqvcpydab6 unique (address_id)
+Hibernate: alter table per_addr add index FK_8v3twe5k7nlb8wcjqvcpydab6 (address_id), add constraint FK_8v3twe5k7nlb8wcjqvcpydab6 foreign key (address_id) references address (address_id)
+Hibernate: alter table per_addr add index FK_hdwakolgq6oelbfuallvfbcn4 (person_id), add constraint FK_hdwakolgq6oelbfuallvfbcn4 foreign key (person_id) references person (person_id)
+
+多对一
+Hibernate: create table address (address_id bigint not null, primary key (address_id))
+Hibernate: create table per_addr (peron_id bigint not null, address_id bigint not null, primary key (peron_id))
+Hibernate: create table person (person_id bigint not null, primary key (person_id))
+Hibernate: alter table per_addr add index FK_7xqe3kidwvogwcohihqla5ehv (peron_id), add constraint FK_7xqe3kidwvogwcohihqla5ehv foreign key (peron_id) references person (person_id)
+Hibernate: alter table per_addr add index FK_8v3twe5k7nlb8wcjqvcpydab6 (address_id), add constraint FK_8v3twe5k7nlb8wcjqvcpydab6 foreign key (address_id) references address (address_id)
+
+一对一
+Hibernate: create table address (address_id bigint not null, primary key (address_id))
+Hibernate: create table per_addr (person_id bigint not null, address_id bigint not null, primary key (person_id))
+Hibernate: create table person (person_id bigint not null, primary key (person_id))
+Hibernate: alter table per_addr add constraint UK_8v3twe5k7nlb8wcjqvcpydab6 unique (address_id)
+Hibernate: alter table per_addr add index FK_hdwakolgq6oelbfuallvfbcn4 (person_id), add constraint FK_hdwakolgq6oelbfuallvfbcn4 foreign key (person_id) references person (person_id)
+Hibernate: alter table per_addr add index FK_8v3twe5k7nlb8wcjqvcpydab6 (address_id), add constraint FK_8v3twe5k7nlb8wcjqvcpydab6 foreign key (address_id) references address (address_id)
+
+多对多
+Hibernate: create table address (address_id bigint not null, primary key (address_id))
+Hibernate: create table per_addr (person_id bigint not null, address_id bigint not null, primary key (person_id, address_id))
+Hibernate: create table person (person_id bigint not null, primary key (person_id))
+Hibernate: alter table per_addr add index FK_8v3twe5k7nlb8wcjqvcpydab6 (address_id), add constraint FK_8v3twe5k7nlb8wcjqvcpydab6 foreign key (address_id) references address (address_id)
+Hibernate: alter table per_addr add index FK_hdwakolgq6oelbfuallvfbcn4 (person_id), add constraint FK_hdwakolgq6oelbfuallvfbcn4 foreign key (person_id) references person (person_id)
+
+
+双向
+多对一/一对多
+Hibernate: create table address (address_id bigint not null, primary key (address_id))
+Hibernate: create table person (person_id bigint not null, address_id bigint not null, primary key (person_id))
+Hibernate: alter table person add index FK_o8tnkglv9n1eeqmo7de7em37n (address_id), add constraint FK_o8tnkglv9n1eeqmo7de7em37n foreign key (address_id) references address (address_id)
+一对一
+	基于外键
+Hibernate: create table address (address_id bigint not null, primary key (address_id))
+Hibernate: create table person (person_id bigint not null, address_id bigint not null, primary key (person_id))
+Hibernate: alter table person add constraint UK_o8tnkglv9n1eeqmo7de7em37n unique (address_id)
+Hibernate: alter table address add index FK_scpdoha0q1mmbp5f9lojr3s9x (address_id), add constraint FK_scpdoha0q1mmbp5f9lojr3s9x foreign key (address_id) references person (person_id)
+Hibernate: alter table person add index FK_o8tnkglv9n1eeqmo7de7em37n (address_id), add constraint FK_o8tnkglv9n1eeqmo7de7em37n foreign key (address_id) references address (address_id)
+	
+	基于主键
+Hibernate: create table address (person_id bigint not null, primary key (person_id))
+Hibernate: create table person (person_id bigint not null, primary key (person_id))
+Hibernate: alter table address add index FK_5k57pkctki2o1wpmk2880r74j (person_id), add constraint FK_5k57pkctki2o1wpmk2880r74j foreign key (person_id) references person (person_id)
+
+双向——中间表
+多对一/一对多
+Hibernate: create table address (address_id bigint not null, primary key (address_id))
+Hibernate: create table per_addr (address_id bigint not null, person_id bigint not null, primary key (person_id, address_id))
+Hibernate: create table person (person_id bigint not null, primary key (person_id))
+Hibernate: alter table per_addr add index FK_8v3twe5k7nlb8wcjqvcpydab6 (address_id), add constraint FK_8v3twe5k7nlb8wcjqvcpydab6 foreign key (address_id) references address (address_id)
+Hibernate: alter table per_addr add index FK_hdwakolgq6oelbfuallvfbcn4 (person_id), add constraint FK_hdwakolgq6oelbfuallvfbcn4 foreign key (person_id) references person (person_id)
+
+一对一
+Hibernate: create table address (address_id bigint not null, primary key (address_id))
+Hibernate: create table per_addr (person_id bigint not null, address_id bigint, primary key (address_id))
+Hibernate: create table person (person_id bigint not null, primary key (person_id))
+Hibernate: alter table per_addr add constraint UK_hdwakolgq6oelbfuallvfbcn4 unique (person_id)
+Hibernate: alter table per_addr add index FK_hdwakolgq6oelbfuallvfbcn4 (person_id), add constraint FK_hdwakolgq6oelbfuallvfbcn4 foreign key (person_id) references person (person_id)
+Hibernate: alter table per_addr add index FK_8v3twe5k7nlb8wcjqvcpydab6 (address_id), add constraint FK_8v3twe5k7nlb8wcjqvcpydab6 foreign key (address_id) references address (address_id)
+
+多对多
+Hibernate: create table address (address_id bigint not null, primary key (address_id))
+Hibernate: create table per_addr (person_id bigint not null, address_id bigint not null, primary key (person_id, address_id))
+Hibernate: create table person (person_id bigint not null, primary key (person_id))
+Hibernate: alter table per_addr add index FK_8v3twe5k7nlb8wcjqvcpydab6 (address_id), add constraint FK_8v3twe5k7nlb8wcjqvcpydab6 foreign key (address_id) references address (address_id)
+Hibernate: alter table per_addr add index FK_hdwakolgq6oelbfuallvfbcn4 (person_id), add constraint FK_hdwakolgq6oelbfuallvfbcn4 foreign key (person_id) references person (person_id)

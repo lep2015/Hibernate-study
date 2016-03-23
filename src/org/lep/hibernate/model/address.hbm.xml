@@ -3,11 +3,53 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="org.lep.hibernate.model" >
-
     <class name="Address" table="address">
         <id name="id" column="address_id">
             <generator class="increment"/>
         </id>
-    </class>
 
+        <!--双向关联 start-->
+
+        <!--多对一/一对多-->
+        <!--<set name="people" inverse="true">-->
+            <!--<key column="address_id"></key>-->
+            <!--<one-to-many class="Person" />-->
+        <!--</set>-->
+
+        <!--一对一，基于外键关联-->
+        <!--<one-to-one name="person" constrained="true"/>-->
+
+        <!--一对一，基于主键关联-->
+        <!--<id name="id" column="person_id">-->
+            <!--<generator class="foreign">-->
+                <!--<param name="property">person</param>-->
+            <!--</generator>-->
+        <!--</id>-->
+        <!--<one-to-one name="person" constrained="true"/>-->
+
+        <!--双向关联 end-->
+
+        <!--双向关联，使用连接表 start-->
+
+        <!--多对一/一对多-->
+        <!--<join table="per_addr" inverse="true" optional="true">-->
+            <!--<key column="address_id"></key>-->
+            <!--<many-to-one name="person" column="person_id" not-null="true"></many-to-one>-->
+        <!--</join>-->
+
+        <!--一对一，必须指定column-->
+        <!--<join table="per_addr" inverse="true" optional="true">-->
+            <!--<key column="address_id" unique="true"></key>-->
+            <!--<many-to-one name="person" column="person_id" unique="true"  />-->
+        <!--</join>-->
+
+        <!--多对多-->
+        <!--<set name="people" inverse="true" table="per_addr">-->
+        <!--<key column="address_id"></key>-->
+        <!--<many-to-many column="person_id" class="Person"></many-to-many>-->
+        <!--</set>-->
+
+        <!--双向关联，使用连接表 end-->
+
+    </class>
 </hibernate-mapping>
